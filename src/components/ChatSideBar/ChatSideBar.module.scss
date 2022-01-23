@@ -1,0 +1,11 @@
+.container {
+  height: 100%;
+  width: 100%;
+  border-right: 1px solid #c4c4c4;
+
+  &_purple {
+    height: 118px;
+    width: 100%;
+    background-color: #b8bce3;
+  }
+}

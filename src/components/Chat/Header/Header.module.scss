@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Questrial&family=Roboto&display=swap");
+
+.container {
+  height: 77px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 25px 0 51px;
+  border-bottom: 1px solid #c4c4c4;
+
+  &_person_data {
+    display: flex;
+    align-items: center;
+
+    & svg {
+      width: 42px;
+      height: 42px;
+      stroke: #fff;
+      fill: #c4c4c4;
+    }
+    & span {
+      font-family: "Questrial", sans-serif;
+      margin-left: 20px;
+      height: fit-content;
+    }
+  }
+
+  &_info_btn {
+    height: 100%;
+    display: flex;
+    align-items: center;
+
+    & img {
+      cursor: pointer;
+      width: 36px;
+    }
+  }
+}
