@@ -1,7 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Questrial&family=Roboto&display=swap");
 
+
+.wrap{
+  width: 100%;
+  display: flex;
+  justify-content: start;
+}
+
+.owner_wrap{
+  justify-content: flex-end;
+}
+
 .container {
+  margin-top: 2px;
   width: fit-content;
+  max-width: 60%;
+  word-break: break-word;
   border: 2px solid #c4c4c4;
   border-radius: 40px;
   padding: 16px 25px;

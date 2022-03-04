@@ -52,7 +52,7 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
       };
     }
     case TYPE_REDUCER.CHOOSE_CONVERSATION: {
-      const id: string = action.payload;
+      const { id, messagesData }: { id: string, messagesData: Array<MessageT> } = action.payload;
       const ConversationListCopied: Array<ConversationT> = JSON.parse(
         JSON.stringify(state.ConversationData.ConversationList)
       );
@@ -64,13 +64,15 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
       };
       ConversationListCopied.forEach((conversation: ConversationT) => {
         if (conversation._id === id) {
-          if (!!conversation.messages) {
-            activeConversation.messages = conversation.messages;
+
+          activeConversation._id = conversation._id;
+          activeConversation.members = conversation.members;
+
+          if (Array.isArray(messagesData) && messagesData.length > 0) {
+            activeConversation.messages = messagesData;
           } else {
             conversation = { ...conversation, messages: [] };
-            activeConversation._id = conversation._id;
             activeConversation.messages = [];
-            activeConversation.members = conversation.members;
           }
         }
       });
@@ -89,11 +91,13 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
       const ActiveConversationCopied: ConversationT = JSON.parse(
         JSON.stringify(state.ConversationData.ActiveConversation)
       );
+      
       ActiveConversationCopied.messages.push(messageData);
 
       return {
         ...state,
         ConversationData: {
+          ...state.ConversationData,
           ActiveConversation: ActiveConversationCopied,
         },
       };

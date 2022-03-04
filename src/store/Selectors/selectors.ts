@@ -2,6 +2,7 @@ import {
   ChatsListT,
   ConversationDataT,
   ConversationT,
+  initialStateT,
   UserDataT,
 } from "../../utils/Types";
 
@@ -25,6 +26,7 @@ export const isConversation =
     if (!!ConversationList) {
       isConversation = ConversationList.filter(
         (conversation: ConversationT) =>
+          !!conversation.members &&
           conversation.members.includes(senderId) &&
           conversation.members.includes(receiverId)
       )[0];
@@ -40,3 +42,13 @@ export const getConversationData = ({ ...state }): ConversationDataT => {
 
   return ConversationData;
 };
+
+
+export const getReceiverNickname = ({...state}):string => {
+  const Configurations:initialStateT = state.Configurations;
+  const userName:string = Configurations.UserData.userLogin;
+  const activeConversationMembers:string[] = Configurations.ConversationData.ActiveConversation.members;
+  const receiverNickname:string = activeConversationMembers.filter((nickName:string) => nickName !== userName)[0];
+  
+  return receiverNickname;
+}

@@ -1,4 +1,23 @@
 .container {
-  width: 100%;
+  width: 98%;
   height: 60vh;
+  padding: 1%;
+  z-index: 1;
+  overflow-y:auto;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    width: 12px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    border:3px solid #fff;
+    background-clip: padding-box;
+    background-color: #A4A4A4;
+    border-radius: 8px;
+  }
+
+  &_messages_body{
+    z-index: 1;
+  }
 }

@@ -1,10 +1,13 @@
+import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 import * as Yup from "yup";
+import { API_URL } from "../../http";
 import AuthService from "../../services/auth-service";
-import { setUserLogin } from "../../store/Actions/Settings";
+import { chooseConversation, setUserLogin } from "../../store/Actions/Settings";
 import { UserCredentialsT } from "../../utils/Types";
 
 import s from "./LoginForm.module.scss";
@@ -26,6 +29,7 @@ export const LoginForm = ({ ...props }): JSX.Element => {
   const [password, setPassword] = React.useState<string>("");
   const [serverErrors, setServerErrors] = React.useState<string>("");
   const [serverErrorFlag, setServerErrorFlag] = React.useState<boolean>(false);
+  const socketRef:any = React.useRef(io("ws://localhost:8900"));
   const navigation = useNavigate();
 
   const loginInitialState: UserCredentialsT = {
@@ -56,9 +60,10 @@ export const LoginForm = ({ ...props }): JSX.Element => {
     (login: string, password: string) => async () => {
       try {
         const response = await AuthService.registration(login, password);
-        navigation(`/chats/${login}`);
-        dispatch(setUserLogin(login));
         localStorage.setItem("token", response.data.accessToken);
+        dispatch(setUserLogin(login));
+        dispatch(chooseConversation({id: ''}));
+        navigation(`/chats/${login}`);
       } catch (e: any) {
         setServerErrors(e.response?.data?.message);
         setErrorFlagHandler();
@@ -70,6 +75,7 @@ export const LoginForm = ({ ...props }): JSX.Element => {
       const response = await AuthService.login(login, password);
       localStorage.setItem("token", response.data.accessToken);
       dispatch(setUserLogin(login));
+      dispatch(chooseConversation({id: ''}));
       navigation(`/chats/${login}`);
     } catch (e: any) {
       setServerErrors(e.response?.data?.message);
@@ -80,6 +86,19 @@ export const LoginForm = ({ ...props }): JSX.Element => {
   const chooseFunction: any = isRegistrationChosen
     ? registrationClickHandler(login, password)
     : loginClickHandler(login, password);
+
+  const logOutOperations = async() => {
+    localStorage.removeItem("token");
+    try{
+      await axios.post(`${API_URL}/logout`);
+    }catch(e){
+      console.log(e);
+    }
+  }
+
+  React.useEffect(() => {
+    logOutOperations();
+  },[socketRef.current]);
 
   return (
     <div className={s.container}>

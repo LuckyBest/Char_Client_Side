@@ -11,12 +11,27 @@ export type MessageComponentT = {
 export const MessageComponent: FC<MessageComponentT> = ({
   ...props
 }): JSX.Element => {
+  
   const { userLogin, text } = props;
   const ownerLogin: string = useSelector(getUserData).userLogin;
+  
+  
+  let wrapClass:string = `${s.wrap}`;
+  let containerClass:string = `${s.container}`;
 
-  let containerClass: string = `${s.container}`;
+  
+  if (ownerLogin === userLogin){
+    wrapClass += ` ${s.owner_wrap}`;
+    containerClass += ` ${s.owner_message}`;
+  } 
+  else{
+    wrapClass = `${s.wrap}`;
+    containerClass = `${s.container}`;
+  }
 
-  if (ownerLogin === userLogin) containerClass += ` ${s.owner_message}`;
-
-  return <div className={containerClass}>{text}</div>;
+  return (
+    <div className={wrapClass}>
+      <div className={containerClass}>{text}</div>
+    </div>
+  );
 };

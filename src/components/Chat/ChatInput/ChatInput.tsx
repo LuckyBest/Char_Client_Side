@@ -6,16 +6,14 @@ import { debounce } from "../../../utils/debounce";
 import { ConversationT } from "../../../utils/Types";
 import { io } from "socket.io-client";
 import s from "./ChatInput.module.scss";
-import { sendMessage } from "../../../store/Actions/Settings";
 
 export const ChatInput: FC = ({ ...props }): JSX.Element => {
-  const dispatch = useDispatch();
-  const [socket, setSocket] = React.useState<any>(null);
   const [text, setText] = React.useState<string>("");
   const activeConversationData: ConversationT =
-    useSelector(getConversationData).ActiveConversation;
-  const { userId }: Readonly<Params<string>> = useParams();
+  useSelector(getConversationData).ActiveConversation;
+  const socketRef:any = React.useRef(io("ws://localhost:8900")); 
   const textareaRef = React.useRef<any>();
+  const { userId }: Readonly<Params<string>> = useParams();
 
   const textOnChangeHandler = (e: any): void => {
     setText(e.target.value);
@@ -28,29 +26,20 @@ export const ChatInput: FC = ({ ...props }): JSX.Element => {
       !!userId &&
       !isEmpty &&
       !!activeConversationData._id &&
-      !!socket &&
+      !!socketRef.current &&
       !!textareaRef.current
     ) {
-      socket.send({
+
+      socketRef.current.emit("sendMessage",{
         sender: userId,
         conversationId: activeConversationData._id,
         text,
       });
-      dispatch(
-        sendMessage({
-          sender: userId,
-          conversationId: activeConversationData._id,
-          text,
-        })
-      );
+
       textareaRef.current.value = "";
       setText("");
     }
   };
-
-  React.useEffect(() => {
-    setSocket(io("ws://localhost:8900"));
-  }, []);
 
   return (
     <div className={s.container}>

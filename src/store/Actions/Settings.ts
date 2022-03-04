@@ -1,4 +1,4 @@
-import { MessageT } from "./../../utils/Types";
+import { MessageT } from "../../utils/Types";
 import axios from "axios";
 import { API_URL } from "../../http";
 import { TYPE_REDUCER } from "../../utils/constants";
@@ -51,7 +51,20 @@ export const createConversation = (data: ConversationT) => ({
   payload: data,
 });
 
-export const chooseConversation = (data: string) => ({
+
+export const asyncChooseConversation = (conversationId:string) => async(dispatch:any) => {
+  try{
+    const { data }: { data :any } = await axios.get(`${API_URL}/${conversationId}`);  
+    
+    if(!!data){
+      dispatch(chooseConversation({ id: conversationId, messagesData: data}));
+    }
+  }catch(e){
+    console.log('asyncChooseConversation', e);
+  }
+}
+
+export const chooseConversation = (data: any) => ({
   type: TYPE_REDUCER.CHOOSE_CONVERSATION,
   payload: data,
 });
@@ -73,26 +86,6 @@ export const setUserConversation = (data: Array<ConversationT>) => ({
   type: TYPE_REDUCER.SET_USERS_CONVERSATIONS,
   payload: data,
 });
-
-// export const asyncSendMessage =
-//   (sender: string, conversationId: string, text: string) =>
-//   async (dispatch: any) => {
-//     try {
-//       const { data } = await axios.post(`${API_URL}/sendMessage`, {
-//         conversationId,
-//         sender,
-//         text,
-//       });
-
-//       if (!!data) {
-//         console.log("data", data);
-
-//         dispatch(sendMessage(data));
-//       }
-//     } catch (e) {
-//       console.log("asyncSendMessage", e);
-//     }
-//   };
 
 export const sendMessage = (data: Array<MessageT> | any) => ({
   type: TYPE_REDUCER.SEND_MESSAGE,

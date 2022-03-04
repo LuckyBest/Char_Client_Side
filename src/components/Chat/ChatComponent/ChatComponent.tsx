@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Anonym } from "../../../assets/Anonym";
 import {
+  asyncChooseConversation,
   asyncConversationCreation,
   chooseConversation,
 } from "../../../store/Actions/Settings";
@@ -28,7 +29,7 @@ export const ChatComponent: FC<ChatComponentT> = ({
       if (!doesConversationExist) {
         dispatch(asyncConversationCreation(senderId, receiverId));
       } else {
-        dispatch(chooseConversation(doesConversationExist._id));
+        dispatch(asyncChooseConversation(doesConversationExist._id));
       }
     };
 
