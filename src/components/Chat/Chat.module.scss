@@ -4,4 +4,9 @@
   &_header {
     width: 100%;
   }
+
+  &_main{
+    display: flex;
+    flex-direction: column-reverse;
+  } 
 }

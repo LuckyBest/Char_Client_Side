@@ -23,7 +23,6 @@ export type ConversationDataT = {
 export type ConversationT = {
   _id: string;
   members: string[];
-  messages: Array<MessageT>;
   _v?: number;
 };
 
@@ -39,6 +38,12 @@ export type MessageT = {
 export type UserCredentialsT = {
   login: string;
   password: string;
+};
+
+
+export type MessageComponentT = {
+  userLogin: string;
+  text: string;
 };
 
 export type createConversationT = { sender: string; receiver: string };

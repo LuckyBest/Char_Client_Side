@@ -1,14 +1,11 @@
 import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { getUserData } from "../../store/Selectors/selectors";
+import { MessageComponentT } from "../../utils/Types";
 import s from "./MessageComponent.module.scss";
 
-export type MessageComponentT = {
-  userLogin: string;
-  text: string;
-};
 
-export const MessageComponent: FC<MessageComponentT> = ({
+const MessageComponent: FC<MessageComponentT> = ({
   ...props
 }): JSX.Element => {
   
@@ -35,3 +32,5 @@ export const MessageComponent: FC<MessageComponentT> = ({
     </div>
   );
 };
+
+export default MessageComponent;

@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
 import { Anonym } from "../../../assets/Anonym";
 import {
   asyncChooseConversation,
   asyncConversationCreation,
-  chooseConversation,
 } from "../../../store/Actions/Settings";
 import { isConversation } from "../../../store/Selectors/selectors";
 import { ConversationT } from "../../../utils/Types";
@@ -23,12 +23,15 @@ export const ChatComponent: FC<ChatComponentT> = ({
   const doesConversationExist: ConversationT = useSelector(
     isConversation(senderId, receiverId)
   );
+  const socketRef:any = React.useRef(io("ws://localhost:8900"));
 
   const setUsersConversations =
     (senderId: string, receiverId: string) => (): void => {
       if (!doesConversationExist) {
-        dispatch(asyncConversationCreation(senderId, receiverId));
-      } else {
+        if(!!socketRef.current)
+          dispatch(asyncConversationCreation(senderId, receiverId, socketRef.current.id));
+      } 
+      else {
         dispatch(asyncChooseConversation(doesConversationExist._id));
       }
     };

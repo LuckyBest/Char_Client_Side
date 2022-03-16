@@ -7,7 +7,7 @@ const initialState: initialStateT = {
   },
   ChatsList: [],
   ConversationData: {
-    ActiveConversation: { _id: "", members: [], messages: [] },
+    ActiveConversation: { _id: "", members: [] },
     ConversationList: [],
   },
 };
@@ -52,7 +52,7 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
       };
     }
     case TYPE_REDUCER.CHOOSE_CONVERSATION: {
-      const { id, messagesData }: { id: string, messagesData: Array<MessageT> } = action.payload;
+      const { id }: { id: string} = action.payload;
       const ConversationListCopied: Array<ConversationT> = JSON.parse(
         JSON.stringify(state.ConversationData.ConversationList)
       );
@@ -60,20 +60,11 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
       let activeConversation: ConversationT = {
         _id: "",
         members: [],
-        messages: [],
       };
       ConversationListCopied.forEach((conversation: ConversationT) => {
         if (conversation._id === id) {
-
           activeConversation._id = conversation._id;
           activeConversation.members = conversation.members;
-
-          if (Array.isArray(messagesData) && messagesData.length > 0) {
-            activeConversation.messages = messagesData;
-          } else {
-            conversation = { ...conversation, messages: [] };
-            activeConversation.messages = [];
-          }
         }
       });
 
@@ -91,8 +82,9 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
       const ActiveConversationCopied: ConversationT = JSON.parse(
         JSON.stringify(state.ConversationData.ActiveConversation)
       );
-      
-      ActiveConversationCopied.messages.push(messageData);
+
+      // if(!!messageData)
+      //   ActiveConversationCopied.messages.push(messageData);
 
       return {
         ...state,

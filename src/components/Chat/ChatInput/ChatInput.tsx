@@ -15,21 +15,18 @@ export const ChatInput: FC = ({ ...props }): JSX.Element => {
   const textareaRef = React.useRef<any>();
   const { userId }: Readonly<Params<string>> = useParams();
 
-  const textOnChangeHandler = (e: any): void => {
+  const textOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setText(e.target.value);
   };
 
   const sendOnClickHandler = (): void => {
     const isEmpty: boolean = !text.split(" ").join();
-
-    if (
-      !!userId &&
-      !isEmpty &&
-      !!activeConversationData._id &&
-      !!socketRef.current &&
-      !!textareaRef.current
-    ) {
-
+    const sendMessageCondition:boolean = !!userId && !isEmpty && 
+                                  !!activeConversationData._id &&
+                                  !!socketRef.current &&
+                                  !!textareaRef.current
+    
+    if (sendMessageCondition) {
       socketRef.current.emit("sendMessage",{
         sender: userId,
         conversationId: activeConversationData._id,
@@ -40,6 +37,31 @@ export const ChatInput: FC = ({ ...props }): JSX.Element => {
       setText("");
     }
   };
+
+  // const onPressSendMessageHandler = (event:any):void => {
+  //   const isEmpty: boolean = !text.split(" ").join();
+  //   const sendMessageCondition:boolean = !!userId && !isEmpty && 
+  //                                 !!activeConversationData._id &&
+  //                                 !!socketRef.current &&
+  //                                 !!textareaRef.current
+    
+  //   const isEnterPressed:boolean = event.key === "Enter"; 
+
+  //   if (isEnterPressed && sendMessageCondition) {
+  //     socketRef.current.emit("sendMessage",{
+  //       sender: userId,
+  //       conversationId: activeConversationData._id,
+  //       text,
+  //     });
+
+  //     textareaRef.current.value = "";
+  //     setText("");
+  //   }
+  // }
+
+  if(!activeConversationData._id)
+    return <div className={s.container}></div>;
+
 
   return (
     <div className={s.container}>

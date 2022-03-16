@@ -31,11 +31,12 @@ export const setUserLogin = (data: string) => ({
 });
 
 export const asyncConversationCreation =
-  (senderId: string, receiverId: string) => async (dispatch: any) => {
+  (senderId: string, receiverId: string, socketId: string) => async (dispatch: any) => {
     try {
       const conversationData = await axios.post(`${API_URL}/conversation`, {
         senderId,
         receiverId,
+        socketId
       });
 
       if (!!conversationData.data) {
@@ -54,10 +55,10 @@ export const createConversation = (data: ConversationT) => ({
 
 export const asyncChooseConversation = (conversationId:string) => async(dispatch:any) => {
   try{
-    const { data }: { data :any } = await axios.get(`${API_URL}/${conversationId}`);  
+    const { data }: { data :Array<MessageT> } = await axios.get(`${API_URL}/${conversationId}?count=${30}`);  
     
     if(!!data){
-      dispatch(chooseConversation({ id: conversationId, messagesData: data}));
+      dispatch(chooseConversation({ id: conversationId }));
     }
   }catch(e){
     console.log('asyncChooseConversation', e);
@@ -73,7 +74,7 @@ export const asyncGetUserConversation =
   (userId: string) => async (dispatch: any) => {
     try {
       const { data } = await axios.get(`${API_URL}/conversation/${userId}`);
-
+      
       if (!!data) {
         dispatch(setUserConversation(data));
       }
