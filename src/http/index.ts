@@ -9,7 +9,7 @@ export type projectUrlsObjectT = {
 
 const projectUrlsObject:projectUrlsObjectT = {
   development: `http://localhost:5000/api`,
-  production: `https://dinauxchatserver.herokuapp.com/`,
+  production: `https://dinauxchatserver.herokuapp.com/api`,
   test: ``,
 } 
 
