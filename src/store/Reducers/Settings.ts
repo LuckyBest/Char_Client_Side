@@ -2,6 +2,9 @@ import { TYPE_REDUCER } from "../../utils/constants";
 import { ConversationT, initialStateT, MessageT } from "../../utils/Types";
 
 const initialState: initialStateT = {
+  interfaceInfo:{
+    isChatsListShown: true
+  },
   UserData: {
     userLogin: "",
   },
@@ -29,6 +32,15 @@ export const Settings = (state: initialStateT = initialState, action: any) => {
         },
       };
     }
+    case TYPE_REDUCER.SET_IS_CHATS_SHOWN: {
+      return{
+        ...state,
+        interfaceInfo:{
+          ...state.interfaceInfo,
+          isChatsListShown: action.payload
+        }
+      }
+    };
     case TYPE_REDUCER.CREATE_CONVERSATION: {
       return {
         ...state,

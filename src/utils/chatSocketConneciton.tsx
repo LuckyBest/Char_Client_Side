@@ -9,7 +9,7 @@ export const useSocketConnection = () => {
     const socketRef:any = React.useRef(socketConnection);
     const [messagesData, setMessagesData] = React.useState<Array<MessageT>>([]);
 
-    console.log('socketConnection', socketConnection);
+    // console.log('socketConnection', socketConnection);
 
     React.useEffect(() => {        
       if (!!socketRef.current){

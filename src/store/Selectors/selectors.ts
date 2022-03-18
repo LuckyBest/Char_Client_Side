@@ -3,6 +3,7 @@ import {
   ConversationDataT,
   ConversationT,
   initialStateT,
+  interfaceInfoT,
   UserDataT,
 } from "../../utils/Types";
 
@@ -51,4 +52,11 @@ export const getReceiverNickname = ({...state}):string => {
   const receiverNickname:string = activeConversationMembers.filter((nickName:string) => nickName !== userName)[0];
   
   return receiverNickname;
+}
+
+
+export const getInterfaceInfo = ({...state}):interfaceInfoT => {
+  const Configurations:initialStateT = state.Configurations;
+  const interfaceInfo: interfaceInfoT = Configurations.interfaceInfo;
+  return interfaceInfo;
 }

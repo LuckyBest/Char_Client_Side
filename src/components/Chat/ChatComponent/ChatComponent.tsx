@@ -5,6 +5,7 @@ import { Anonym } from "../../../assets/Anonym";
 import {
   asyncChooseConversation,
   asyncConversationCreation,
+  setMobileChatsListVisibility,
 } from "../../../store/Actions/Settings";
 import { isConversation } from "../../../store/Selectors/selectors";
 import { SOCKET_URL } from "../../../utils/socketsSettings";
@@ -35,6 +36,8 @@ export const ChatComponent: FC<ChatComponentT> = ({
       else {
         dispatch(asyncChooseConversation(doesConversationExist._id));
       }
+
+      dispatch(setMobileChatsListVisibility(false));
     };
 
   return (

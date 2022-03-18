@@ -92,3 +92,9 @@ export const sendMessage = (data: Array<MessageT> | any) => ({
   type: TYPE_REDUCER.SEND_MESSAGE,
   payload: data,
 });
+
+
+export const setMobileChatsListVisibility = (data:boolean) => ({
+  type: TYPE_REDUCER.SET_IS_CHATS_SHOWN,
+  payload: data
+})

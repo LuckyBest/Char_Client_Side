@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Params, useParams } from "react-router-dom";
 import { getAllChats, setUserLogin } from "../../store/Actions/Settings";
-import { getAllChatsData, getUserData } from "../../store/Selectors/selectors";
+import { getAllChatsData, getInterfaceInfo, getUserData } from "../../store/Selectors/selectors";
 import { ChatsListT } from "../../utils/Types";
 import {
   ChatComponent,
@@ -15,6 +15,8 @@ export const ChatSideBar: FC = ({ ...props }): JSX.Element => {
   const dispatch = useDispatch();
   const chatsData: Array<ChatsListT> = useSelector(getAllChatsData);
   const userLogin: string = useSelector(getUserData).userLogin;
+  const isChatsListShown:boolean = useSelector(getInterfaceInfo).isChatsListShown;
+
   const { userId }: Readonly<Params<string>> = useParams();
   const setChatsData = ():void => {
     dispatch(getAllChats());
@@ -25,8 +27,14 @@ export const ChatSideBar: FC = ({ ...props }): JSX.Element => {
     if (!userLogin && !!userId) dispatch(setUserLogin(userId));
   }, []);
 
+  let containerClass:string = `${s.container}`;
+
+  if(!isChatsListShown){
+    containerClass += ` ${s.disabled}`;
+  }
+
   return (
-    <div className={s.container}>
+    <div className={containerClass}>
       <div className={s.container_purple} />
       <div className={s.container_chats}>
         {chatsData.map((item: ChatsListT, index: number): JSX.Element => {

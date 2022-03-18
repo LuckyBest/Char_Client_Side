@@ -12,3 +12,13 @@
     grid-template-columns: 1.5fr 4fr;
   }
 }
+
+
+@media screen and (max-width: 650px) {
+  .container {  
+    &_content {
+      display: block;
+      height: 90%;
+    }
+  }
+}

@@ -1,8 +1,14 @@
 export type initialStateT = {
+  interfaceInfo:interfaceInfoT;
   UserData: UserDataT;
   ChatsList: Array<ChatsListT>;
   ConversationData: ConversationDataT;
 };
+
+
+export type interfaceInfoT = {
+  isChatsListShown:boolean;
+}
 
 export type UserDataT = {
   userLogin: string;

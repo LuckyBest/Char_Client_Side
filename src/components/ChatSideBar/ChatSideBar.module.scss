@@ -9,3 +9,15 @@
     background-color: #b8bce3;
   }
 }
+
+@media screen and(max-width:650px){
+  .container{
+    display: block;
+  }
+
+  .disabled{
+    display: none;
+  }
+}
+
+

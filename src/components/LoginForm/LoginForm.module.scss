@@ -122,3 +122,22 @@ textarea:focus {
     opacity: 0;
   }
 }
+
+
+@media screen and(max-width:628px) {
+  .container {
+    width:80%;
+
+    &_main {
+
+      &_errors {
+        font-size: 14px;
+        line-height: 24px;
+      }
+
+      &_header {
+        font-size: 33px;
+      }
+    }
+  }
+}
