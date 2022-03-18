@@ -7,6 +7,7 @@ import {
   asyncConversationCreation,
 } from "../../../store/Actions/Settings";
 import { isConversation } from "../../../store/Selectors/selectors";
+import { SOCKET_URL } from "../../../utils/socketsSettings";
 import { ConversationT } from "../../../utils/Types";
 import s from "./ChatComponent.module.scss";
 
@@ -23,7 +24,7 @@ export const ChatComponent: FC<ChatComponentT> = ({
   const doesConversationExist: ConversationT = useSelector(
     isConversation(senderId, receiverId)
   );
-  const socketRef:any = React.useRef(io("ws://localhost:8900"));
+  const socketRef:any = React.useRef(io(SOCKET_URL));
 
   const setUsersConversations =
     (senderId: string, receiverId: string) => (): void => {

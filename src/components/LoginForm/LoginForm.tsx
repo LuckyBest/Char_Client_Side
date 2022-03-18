@@ -8,6 +8,7 @@ import * as Yup from "yup";
 import { API_URL } from "../../http";
 import AuthService from "../../services/auth-service";
 import { chooseConversation, setUserLogin } from "../../store/Actions/Settings";
+import { SOCKET_URL } from "../../utils/socketsSettings";
 import { UserCredentialsT } from "../../utils/Types";
 
 import s from "./LoginForm.module.scss";
@@ -29,7 +30,7 @@ export const LoginForm = ({ ...props }): JSX.Element => {
   const [password, setPassword] = React.useState<string>("");
   const [serverErrors, setServerErrors] = React.useState<string>("");
   const [serverErrorFlag, setServerErrorFlag] = React.useState<boolean>(false);
-  const socketRef:any = React.useRef(io("ws://localhost:8900"));
+  const socketRef:any = React.useRef(io(SOCKET_URL));
   const navigation = useNavigate();
 
   const loginInitialState: UserCredentialsT = {

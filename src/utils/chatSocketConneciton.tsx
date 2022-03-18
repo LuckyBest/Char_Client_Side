@@ -1,8 +1,9 @@
 import React from 'react';
 import { io } from 'socket.io-client';
+import { SOCKET_URL } from './socketsSettings';
 import { MessageT } from './Types';
 
-const socketConnection:any = io("ws://localhost:8900")
+const socketConnection:any = io(SOCKET_URL)
 
 export const useSocketConnection = () => {
     const socketRef:any = React.useRef(socketConnection);

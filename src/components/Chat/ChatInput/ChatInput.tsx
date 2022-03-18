@@ -6,12 +6,13 @@ import { debounce } from "../../../utils/debounce";
 import { ConversationT } from "../../../utils/Types";
 import { io } from "socket.io-client";
 import s from "./ChatInput.module.scss";
+import { SOCKET_URL } from "../../../utils/socketsSettings";
 
 export const ChatInput: FC = ({ ...props }): JSX.Element => {
   const [text, setText] = React.useState<string>("");
   const activeConversationData: ConversationT =
   useSelector(getConversationData).ActiveConversation;
-  const socketRef:any = React.useRef(io("ws://localhost:8900")); 
+  const socketRef:any = React.useRef(io(SOCKET_URL)); 
   const textareaRef = React.useRef<any>();
   const { userId }: Readonly<Params<string>> = useParams();
 

@@ -9,6 +9,7 @@ import { useFetchMessages } from "../../../utils/FetchMessages";
 import { io } from "socket.io-client";
 
 import s from "./ChatMessages.module.scss";
+import { SOCKET_URL } from "../../../utils/socketsSettings";
 
 const MessageComponent = React.lazy(() => import("../../MessageComponent/MessageComponent"));
 
@@ -20,7 +21,7 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
   const { messageContainerRef } = props;
   const activeConversation: ConversationT =
     useSelector(getConversationData).ActiveConversation;
-  const socketRef:any = React.useRef(io("ws://localhost:8900"));
+  const socketRef:any = React.useRef(io(SOCKET_URL));
   const chatBottomRef = React.useRef<null | HTMLDivElement>(null);
   // const messageContainerRef:any = React.useRef(null);
   const [messages, setMessages]: any = useFetchMessages(
