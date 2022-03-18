@@ -33,6 +33,8 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
     }
     
     const fetchMessages = async (conversationId:string) => {
+        console.log('messagesPage', messagesPage);
+        
         setTimeout(async () => {
             await axios.get(`${API_URL}/${conversationId}?count=${messagesCount}&page=${messagesPage}`)
                 .then(({ data }:any):void => {
