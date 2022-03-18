@@ -8,7 +8,7 @@ export type projectUrlsObjectT = {
   
 const projectUrlsObject:projectUrlsObjectT = {
     development: `ws://localhost:8900`,
-    production: `https://dinauxchatsocket.herokuapp.com:8900`,
+    production: `https://dinauxchatsocket.herokuapp.com`,
     test: ``,
 } 
 
