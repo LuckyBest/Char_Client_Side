@@ -40,7 +40,7 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
                 .then(({ data }:any):void => {
                     data.reverse();
                     setMessages((): Array<MessageT> => [...data, ...messages]);
-                    setMessagesPage(():number => messagesPage++); 
+                    setMessagesPage(():number => messagesPage += 1); 
                 })
                 .catch((e) => {
                     console.log('fetchMessages', e);
