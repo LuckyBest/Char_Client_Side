@@ -47,7 +47,7 @@ export const Chat: FC = ({ ...props }): JSX.Element => {
         <ChatMessages messageContainerRef = {messageContainerRef}/>
       </div>
       <div className={s.container_send}>
-        <div className={s.container_send_arrow}>
+        <div className={s.container_send_arrow} onClick={arrowBackClickHandler}>
           <ArrowBack/>
         </div>
         <ChatInput />
