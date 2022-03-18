@@ -44,7 +44,7 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
     chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  // console.log('messages', messages);
+  console.log('messages', messages);
 
   
   React.useEffect(() => { 
