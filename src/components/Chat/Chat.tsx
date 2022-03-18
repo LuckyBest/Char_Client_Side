@@ -11,15 +11,16 @@ export const Chat: FC = ({ ...props }): JSX.Element => {
   const messageContainerRef:any = React.useRef(null);
 
   const startFromBottom = ():void => {
-    if(!!messageContainerRef.current){
-      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight - messageContainerRef.current.clientHeight;
-      // console.log('messageContainerRef.current.scrollTop', messageContainerRef.current.scrollTop);
-    }
+    // if(!!messageContainerRef.current){
+    //   messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight - messageContainerRef.current.clientHeight;
+    //   console.log('messageContainerRef.current.scrollTop', messageContainerRef.current.scrollTop);
+    // }
+    messageContainerRef.current.scrollIntoView();
   };
 
   React.useEffect(() => {
     startFromBottom();
-  }, [messageContainerRef.current]);
+  });
 
   return (
     <div className={s.container}>

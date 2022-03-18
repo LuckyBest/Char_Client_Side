@@ -16,8 +16,8 @@ export const ChatSideBar: FC = ({ ...props }): JSX.Element => {
   const chatsData: Array<ChatsListT> = useSelector(getAllChatsData);
   const userLogin: string = useSelector(getUserData).userLogin;
   const { userId }: Readonly<Params<string>> = useParams();
-  const setChatsData = async () => {
-    await dispatch(getAllChats());
+  const setChatsData = ():void => {
+    dispatch(getAllChats());
   };
 
   React.useEffect(() => {

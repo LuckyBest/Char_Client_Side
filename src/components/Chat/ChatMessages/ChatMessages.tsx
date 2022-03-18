@@ -29,28 +29,29 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
       messagesCount: 30,
       messageContainerRef: messageContainerRef.current 
     });
-  // const [isStartedFromBottom, setIsStartedFromBottom] = React.useState<boolean>(false);
 
-  // const startFromBottom = (): void => {
-  //   if(!!messageContainerRef.current){
-  //     messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight - messageContainerRef.current.clientHeight;
-  //     console.log('messageContainerRef.current.scrollTop', messageContainerRef.current.scrollTop);
-  //   }
-  // };
+  const startFromBottom = (): void => {
+    if(!!messageContainerRef.current){
+      messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight - messageContainerRef.current.clientHeight;
+      console.log('messageContainerRef.current.scrollTop', messageContainerRef.current.scrollTop);
+    }
+  };
 
 
-  // startFromBottom();
 
   const scrollToBottom = (): void => {
     chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
   console.log('messages', messages);
+
   
   React.useEffect(() => { 
     if (!!socketRef.current){
       socketRef.current.open();
       socketRef.current.on("getMessage", async (data: any) => {
+        console.log('data', data);
+        
         setMessages((prevData: Array<MessageT>): Array<MessageT> => [...prevData, data]);
         scrollToBottom();
       });

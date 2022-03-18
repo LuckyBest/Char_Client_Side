@@ -1,6 +1,19 @@
 import axios from "axios";
 
-export const API_URL = `http://localhost:5000/api`;
+
+export type projectUrlsObjectT = {
+  development: string,
+  production: string,
+  test: string,
+}
+
+const projectUrlsObject:projectUrlsObjectT = {
+  development: `http://localhost:5000/api`,
+  production: `https://dinauxchatserver.herokuapp.com/`,
+  test: ``,
+} 
+
+export const API_URL = projectUrlsObject[process.env.NODE_ENV];
 
 const $api = axios.create({
   withCredentials: true,
