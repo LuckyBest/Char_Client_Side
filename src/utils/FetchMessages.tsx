@@ -13,7 +13,7 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
 
     const { conversationId, messagesCount, messageContainerRef } = props; 
     const [isFetching, setIsFetching] = React.useState<boolean>(false);
-    const [messages, setMessages] = React.useState<Array<MessageT>>([]);
+    let [messages, setMessages] = React.useState<Array<MessageT>>([]);
     let [messagesPage, setMessagesPage] = React.useState<number>(1);
 
 
@@ -28,7 +28,7 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
     };
 
     const setStatesToInitial = ():void => {
-        setMessages([]);
+        setMessages((): Array<MessageT> => messages = []);
         setMessagesPage(():number => messagesPage = 1);  
     }
     
@@ -37,7 +37,7 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
             await axios.get(`${API_URL}/${conversationId}?count=${messagesCount}&page=${messagesPage}`)
                 .then(({ data }:any):void => {
                     data.reverse();
-                    setMessages((prevMessages: Array<MessageT>): Array<MessageT> => [...data, ...prevMessages]);
+                    setMessages((): Array<MessageT> => [...data, ...messages]);
                     setMessagesPage(():number => messagesPage++); 
                 })
                 .catch((e) => {

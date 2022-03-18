@@ -7,7 +7,7 @@ import { ArrowBack } from "../../assets/ArrowBack";
 import s from "./Chat.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { getInterfaceInfo } from "../../store/Selectors/selectors";
-import { setMobileChatsListVisibility } from "../../store/Actions/Settings";
+import { getAllChats, setMobileChatsListVisibility } from "../../store/Actions/Settings";
 
 
 export const Chat: FC = ({ ...props }): JSX.Element => {
@@ -25,6 +25,7 @@ export const Chat: FC = ({ ...props }): JSX.Element => {
   };
 
   const arrowBackClickHandler = ():void => {
+    dispatch(getAllChats());
     dispatch(setMobileChatsListVisibility(true));
   }
 
