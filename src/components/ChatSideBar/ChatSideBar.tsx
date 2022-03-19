@@ -37,6 +37,7 @@ export const ChatSideBar: FC = ({ ...props }): JSX.Element => {
     <div className={containerClass}>
       <div className={s.container_purple} />
       <div className={s.container_chats}>
+        <div className={s.container_chats_wrap}>
         {chatsData.map((item: ChatsListT, index: number): JSX.Element => {
           if (item.login !== userLogin) {
             const ChatComponentProps: ChatComponentT = {
@@ -54,6 +55,7 @@ export const ChatSideBar: FC = ({ ...props }): JSX.Element => {
             );
           }
         })}
+        </div>
       </div>
     </div>
   );
