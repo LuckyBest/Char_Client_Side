@@ -34,7 +34,7 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
   const startFromBottom = (): void => {
     if(!!messageContainerRef.current){
       messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight - messageContainerRef.current.clientHeight;
-      console.log('messageContainerRef.current.scrollTop', messageContainerRef.current.scrollTop);
+      // console.log('messageContainerRef.current.scrollTop', messageContainerRef.current.scrollTop);
     }
   };
 
@@ -44,14 +44,14 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
     chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  console.log('messages', messages);
+  // console.log('messages', messages);
 
   
   React.useEffect(() => { 
     if (!!socketRef.current){
       socketRef.current.open();
       socketRef.current.on("getMessage", async (data: any) => {
-        console.log('data', data);
+        // console.log('data', data);
         
         setMessages((prevData: Array<MessageT>): Array<MessageT> => [...prevData, data]);
         scrollToBottom();
