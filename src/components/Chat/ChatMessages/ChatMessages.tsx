@@ -7,9 +7,9 @@ import { ConversationT } from "../../../utils/Types";
 import { MessageT } from "../../../utils/Types";
 import { useFetchMessages } from "../../../utils/FetchMessages";
 import { io } from "socket.io-client";
+import { SOCKET_URL } from "../../../utils/socketsSettings";
 
 import s from "./ChatMessages.module.scss";
-import { SOCKET_URL } from "../../../utils/socketsSettings";
 
 const MessageComponent = React.lazy(() => import("../../MessageComponent/MessageComponent"));
 

@@ -8,6 +8,22 @@
     width: 100%;
     background-color: #b8bce3;
   }
+_ 
+  &_chats{
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 12px;
+    }
+  
+    &::-webkit-scrollbar-thumb {
+      border:3px solid #fff;
+      background-clip: padding-box;
+      background-color: #A4A4A4;
+      border-radius: 8px;
+    }
+  }
 }
 
 @media screen and(max-width:650px){
