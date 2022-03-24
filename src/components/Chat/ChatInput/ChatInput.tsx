@@ -12,7 +12,7 @@ export const ChatInput: FC = ({ ...props }): JSX.Element => {
   const [text, setText] = React.useState<string>("");
   const activeConversationData: ConversationT =
   useSelector(getConversationData).ActiveConversation;
-  const socketRef:any = React.useRef(io(SOCKET_URL)); 
+  const socketRef:any = React.useRef(io(SOCKET_URL, { transports: ["websocket" ]})); 
   const textareaRef = React.useRef<any>();
   const { userId }: Readonly<Params<string>> = useParams();
 

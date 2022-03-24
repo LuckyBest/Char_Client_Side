@@ -29,7 +29,7 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
 
     const setStatesToInitial = ():void => {
         setMessages((): Array<MessageT> => messages = []);
-        setMessagesPage(():number => messagesPage = 1);  
+        setMessagesPage((): number => messagesPage = 1);  
     }
     
     const fetchMessages = async (conversationId:string) => {
@@ -38,6 +38,8 @@ export const useFetchMessages = ({...props}:useFetchMessagesT) => {
             await axios.get(`${API_URL}/${conversationId}?count=${messagesCount}&page=${messagesPage}`)
                 .then(({ data }:any):void => {
                     data.reverse();
+                    console.log('data', data);
+                    
                     setMessages((): Array<MessageT> => [...data, ...messages]);
                     setMessagesPage(():number => messagesPage += 1); 
                 })

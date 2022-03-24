@@ -1,7 +1,7 @@
 import React, { FC, Suspense } from "react";
 import { useSelector } from "react-redux";
 import {
-  getConversationData,
+  getConversationData, getUserData,
 } from "../../../store/Selectors/selectors";
 import { ConversationT } from "../../../utils/Types";
 import { MessageT } from "../../../utils/Types";
@@ -13,6 +13,11 @@ import s from "./ChatMessages.module.scss";
 
 const MessageComponent = React.lazy(() => import("../../MessageComponent/MessageComponent"));
 
+export type userDataT = {
+  userId: string,
+  socketId: string
+}
+
 export type ChatMessagesT = {
   messageContainerRef: any;
 }
@@ -21,7 +26,8 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
   const { messageContainerRef } = props;
   const activeConversation: ConversationT =
     useSelector(getConversationData).ActiveConversation;
-  const socketRef:any = React.useRef(io(SOCKET_URL));
+  const { userLogin }: { userLogin :string }= useSelector(getUserData);
+  const socketRef:any = React.useRef(io(SOCKET_URL, { transports: ["websocket" ]}));
   const chatBottomRef = React.useRef<null | HTMLDivElement>(null);
   // const messageContainerRef:any = React.useRef(null);
   const [messages, setMessages]: any = useFetchMessages(
@@ -47,6 +53,18 @@ export const ChatMessages: FC<ChatMessagesT> = ({ ...props }): JSX.Element => {
   // console.log('messages', messages);
 
   
+  React.useEffect(() => {
+    if (!!socketRef.current.id){
+      const userData: userDataT = {
+        userId: userLogin,
+        socketId: socketRef.current.id
+      };
+
+      console.log('userData', userData);
+      socketRef.current.emit('addUser', userData);
+    }
+  })
+
   React.useEffect(() => { 
     if (!!socketRef.current){
       socketRef.current.open();

@@ -4,7 +4,6 @@ import { io } from "socket.io-client";
 import { Anonym } from "../../../assets/Anonym";
 import {
   asyncChooseConversation,
-  asyncConversationCreation,
   setMobileChatsListVisibility,
 } from "../../../store/Actions/Settings";
 import { isConversation } from "../../../store/Selectors/selectors";
@@ -25,18 +24,18 @@ export const ChatComponent: FC<ChatComponentT> = ({
   const doesConversationExist: ConversationT = useSelector(
     isConversation(senderId, receiverId)
   );
-  const socketRef:any = React.useRef(io(SOCKET_URL));
+  const socketRef:any = React.useRef(io(SOCKET_URL, { transports: ["websocket" ]}));
 
   const setUsersConversations =
     (senderId: string, receiverId: string) => (): void => {
       if (!doesConversationExist) {
-        if(!!socketRef.current)
-          dispatch(asyncConversationCreation(senderId, receiverId, socketRef.current.id));
+        if(!!socketRef.current){
+          socketRef.current.emit('createConversation', { senderId, receiverId });
+        }
       } 
       else {
         dispatch(asyncChooseConversation(doesConversationExist._id));
       }
-
       dispatch(setMobileChatsListVisibility(false));
     };
 

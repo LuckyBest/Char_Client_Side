@@ -30,7 +30,7 @@ export const LoginForm = ({ ...props }): JSX.Element => {
   const [password, setPassword] = React.useState<string>("");
   const [serverErrors, setServerErrors] = React.useState<string>("");
   const [serverErrorFlag, setServerErrorFlag] = React.useState<boolean>(false);
-  const socketRef:any = React.useRef(io(SOCKET_URL));
+  const socketRef:any = React.useRef(io(SOCKET_URL, { transports: ["websocket" ]}));
   const navigation = useNavigate();
 
   const loginInitialState: UserCredentialsT = {

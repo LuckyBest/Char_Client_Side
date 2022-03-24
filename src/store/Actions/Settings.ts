@@ -30,22 +30,21 @@ export const setUserLogin = (data: string) => ({
   payload: data,
 });
 
-export const asyncConversationCreation =
-  (senderId: string, receiverId: string, socketId: string) => async (dispatch: any) => {
-    try {
-      const conversationData = await axios.post(`${API_URL}/conversation`, {
-        senderId,
-        receiverId,
-        socketId
-      });
+// export const asyncConversationCreation =
+//   (senderId: string, receiverId: string) => async (dispatch: any) => {
+//     try {
+//       const conversationData = await axios.post(`${API_URL}/conversation`, {
+//         senderId,
+//         receiverId
+//       });
 
-      if (!!conversationData.data) {
-        dispatch(createConversation(conversationData.data));
-      }
-    } catch (e) {
-      console.log("asyncConversationCreation", e);
-    }
-  };
+//       if (!!conversationData.data) {
+//         dispatch(createConversation(conversationData.data));
+//       }
+//     } catch (e) {
+//       console.log("asyncConversationCreation", e);
+//     }
+//   };
 
 export const createConversation = (data: ConversationT) => ({
   type: TYPE_REDUCER.CREATE_CONVERSATION,
